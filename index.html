@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f1e9">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Gentle Fuel">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./gentle-fuel-icon.svg">
+  <title>Gentle Fuel</title>
+  <style>
+    :root { --ink:#28322c; --muted:#6e766e; --paper:#f5f1e9; --card:#fffdf8; --line:#e5ded1; --sage:#cfe0cf; --sage-strong:#477150; --peach:#f7d6bd; --lav:#ddd9ef; --sun:#f2df9c; }
+    * { box-sizing:border-box; } body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.35 -apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,sans-serif; }
+    button { font:inherit; color:inherit; border:0; cursor:pointer; } .app { max-width:520px; min-height:100vh; margin:auto; padding:calc(18px + env(safe-area-inset-top)) 18px calc(100px + env(safe-area-inset-bottom)); }
+    .top { display:flex; align-items:center; justify-content:space-between; margin-bottom:25px; } .eyebrow { color:var(--muted); font-size:13px; letter-spacing:.05em; text-transform:uppercase; } h1 { font-size:30px; letter-spacing:-.04em; margin:2px 0 0; font-weight:650; } .today { background:var(--card); border:1px solid var(--line); border-radius:99px; padding:9px 12px; font-size:13px; }
+    .welcome { background:var(--sage); border-radius:25px; padding:22px; position:relative; overflow:hidden; margin-bottom:15px; } .welcome:after { content:'✦'; position:absolute; right:20px; top:12px; color:var(--sage-strong); font-size:38px; opacity:.7; } h2 { font-size:21px; line-height:1.1; letter-spacing:-.025em; margin:0 0 7px; } .welcome p { margin:0; max-width:300px; color:#35533c; }
+    .energy { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:18px; margin-bottom:15px; } .row { display:flex; align-items:center; justify-content:space-between; gap:12px; } .energy strong { font-size:27px; letter-spacing:-.04em; } .sub { color:var(--muted); font-size:13px; margin-top:2px; } .bar { height:10px; background:#ece8df; border-radius:99px; overflow:hidden; margin:15px 0 9px; } .bar i { display:block; height:100%; width:0; border-radius:99px; background:var(--sage-strong); transition:width .35s ease; } .energy-note { font-size:13px; color:var(--muted); }
+    .section-head { margin:26px 1px 11px; display:flex; justify-content:space-between; align-items:baseline; } .section-head h2 { font-size:18px; } .section-head span { font-size:13px; color:var(--muted); }
+    .activities { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; } .activity { text-align:left; min-height:78px; padding:12px; background:var(--card); border:1px solid var(--line); border-radius:17px; transition:.2s; } .activity[aria-pressed="true"] { background:var(--lav); border-color:#b8b1dc; } .activity b { display:block; font-size:14px; margin-top:4px; } .activity small { color:var(--muted); font-size:11px; }
+    .meal-list { display:grid; gap:10px; } .meal { width:100%; display:grid; grid-template-columns:45px 1fr auto; align-items:center; gap:11px; text-align:left; padding:13px; background:var(--card); border:1px solid var(--line); border-radius:18px; transition:transform .15s,background .2s,border .2s; } .meal[hidden] { display:none !important; } .meal:active{transform:scale(.985)} .meal[aria-pressed="true"]{background:#f0f7ef;border-color:#a9c5ab} .orb { width:42px; height:42px; display:grid; place-items:center; background:var(--peach); border-radius:14px; font-size:21px; } .meal:nth-child(2) .orb {background:var(--sun)} .meal:nth-child(3) .orb {background:var(--lav)} .meal:nth-child(4) .orb {background:var(--sage)} .meal b { display:block; font-size:16px; } .meal small { color:var(--muted); display:block; margin-top:2px; } .check { width:25px; height:25px; border:1.5px solid #b9c0b7; border-radius:50%; display:grid; place-items:center; color:transparent; font-weight:800; } .meal[aria-pressed="true"] .check { background:var(--sage-strong); border-color:var(--sage-strong); color:white; }
+    .gentle { margin-top:17px; background:#f9eadb; border-radius:18px; padding:15px 16px; font-size:14px; color:#674932; } .gentle b { display:block; margin-bottom:2px; } .bonus-card { width:100%; margin-top:17px; display:grid; grid-template-columns:45px 1fr auto; align-items:center; gap:11px; text-align:left; padding:13px; background:#f4ecd1; border:1px solid #dccb88; border-radius:18px; } .bonus-card[hidden]{display:none} .bonus-card .orb { background:var(--sun); } .bonus-card b { display:block; font-size:16px; } .bonus-card small { color:#705f2b; display:block; margin-top:2px; } .bonus-pill { padding:7px 9px; background:#fff8db; border-radius:11px; color:#5f501e; font-size:13px; font-weight:650; white-space:nowrap; } .bonus-card.is-done { background:#e8f2e6; border-color:#aac8ad; } .bonus-card.is-done .orb { background:var(--sage); } .bonus-card.is-done .bonus-pill { background:var(--sage-strong); color:white; }
+    .details { margin-top:23px; } summary { color:var(--muted); font-size:14px; cursor:pointer; } .macro { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px; } .macro div { background:var(--card); border:1px solid var(--line); border-radius:15px; padding:11px; } .macro b { display:block; font-size:16px; } .macro span { color:var(--muted); font-size:12px; }
+    .reset { display:block; margin:22px auto 0; background:none; color:var(--muted); text-decoration:underline; font-size:13px; }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top"><div><div class="eyebrow" id="date">Today</div><h1>Gentle Fuel</h1></div><div class="today" id="mood">A soft plan</div></header>
+    <section class="welcome"><h2 id="hello">Eat in your own rhythm.</h2><p id="message">A meal can be a small act of care. Tap what happened; nothing here needs to be perfect.</p></section>
+    <section class="energy" aria-label="Today's energy context"><div class="row"><div><strong id="progress">0 of 4</strong><div class="sub">moments nourished today</div></div><div id="target">2,300 kcal</div></div><div class="bar"><i id="fill"></i></div><div class="energy-note" id="energyNote">Choose an activity below to see today’s energy context.</div></section>
+    <div class="section-head"><h2>What kind of day is it?</h2><span>sets a gentle guide</span></div>
+    <section class="activities" aria-label="Activity type">
+      <button class="activity" data-type="Rest" data-burn="2100" aria-pressed="false">🌿<b>Rest</b><small>easy day</small></button>
+      <button class="activity" data-type="Gym" data-burn="2400" aria-pressed="false">🏋️<b>Gym only</b><small>2,400 burn</small></button>
+      <button class="activity" data-type="Gym + coaching" data-burn="2600" aria-pressed="false">⚡<b>Gym + coaching</b><small>2,600 burn</small></button>
+      <button class="activity" data-type="Full-day coaching" data-burn="2800" aria-pressed="false">☀️<b>4+ coaching sessions</b><small>2,800 burn</small></button>
+    </section>
+    <div class="section-head"><h2>Today’s food rhythm</h2><span id="mealHint">tap a moment when it happens</span></div>
+    <section class="meal-list">
+      <button class="meal" data-meal="workout" aria-pressed="false"><span class="orb">🥤</span><span><b>Workout meal</b><small>2 slices bread + 1 orange · 270 kcal</small></span><span class="check">✓</span></button>
+      <button class="meal" data-meal="breakfast" aria-pressed="false"><span class="orb">🍳</span><span><b>Breakfast</b><small>32g oats · 2 bananas · 2 eggs · 5 egg whites + honey</small></span><span class="check">✓</span></button>
+      <button class="meal" data-meal="lunch" aria-pressed="false"><span class="orb">🍱</span><span><b>Lunch</b><small>1 bowl rice · 2 palms fish · 1 fist veg · 640 kcal</small></span><span class="check">✓</span></button>
+      <button class="meal" data-meal="dinner" aria-pressed="false"><span class="orb">🍗</span><span><b>Dinner</b><small>1 bowl rice · 1.5 palms chicken · 1 fist veg + olive oil · 560 kcal</small></span><span class="check">✓</span></button>
+    </section>
+    <button class="bonus-card" id="bonusCard" hidden aria-pressed="false"><span class="orb">✨</span><span><b id="bonusTitle">Bonus fuel</b><small id="bonusDetail">A little extra space today</small></span><span class="bonus-pill" id="bonusPill">200 kcal</span></button>
+    <aside class="gentle" id="gentle"><b>One moment at a time.</b>Your meal plan is here to support you, not grade you.</aside>
+    <details class="details"><summary>See the plan’s nutrition (not a target to chase)</summary><div class="macro"><div><b>2,100</b><span>kcal food plan</span></div><div><b>141 g</b><span>protein</span></div><div><b>312 g</b><span>carbs</span></div></div><p class="sub">Your preference: no milk, sour foods, or hard-to-digest foods.</p></details>
+    <button class="reset" id="reset">Begin a fresh day</button>
+  </main>
+  <script>
+    const key = 'gentle-fuel-v1';
+    const state = JSON.parse(localStorage.getItem(key) || '{"meals":[],"activity":"","bonusUsed":false}');
+    const baseline = 2100, desiredDeficit = 300;
+    const meals = [...document.querySelectorAll('.meal')];
+    const activities = [...document.querySelectorAll('.activity')];
+    const copy = ['A little fuel goes a long way.','Your body is doing a lot for you today.','No catching up required—just this moment.','You’re allowed to enjoy the ordinary meals.'];
+    function save(){ localStorage.setItem(key, JSON.stringify(state)); }
+    function render(){
+      meals.forEach(el=>el.setAttribute('aria-pressed',state.meals.includes(el.dataset.meal)));
+      activities.forEach(el=>el.setAttribute('aria-pressed',el.dataset.type===state.activity));
+      const restDay=state.activity==='Rest';
+      const availableMeals=restDay?meals.filter(el=>el.dataset.meal!=='workout'):meals;
+      meals.forEach(el=>el.hidden=restDay&&el.dataset.meal==='workout');
+      const n=state.meals.filter(meal=>availableMeals.some(el=>el.dataset.meal===meal)).length; document.getElementById('progress').textContent=`${n} of ${availableMeals.length}`;
+      document.getElementById('fill').style.width=`${n/availableMeals.length*100}%`;
+      document.getElementById('mood').textContent=n===4?'Nicely nourished':n?'In your rhythm':'A soft plan';
+      document.getElementById('hello').textContent=n===4?'You made space for yourself.':n?'That counts. Keep it gentle.':'Eat in your own rhythm.';
+      document.getElementById('message').textContent=n===4?'Your day doesn’t need a score. You showed up for yourself in small, real ways.':copy[n];
+      const a=activities.find(x=>x.dataset.type===state.activity);
+      const burn = a ? Number(a.dataset.burn) : 0;
+      const foodPlan = restDay ? baseline - 270 : baseline;
+      const allowance = burn - desiredDeficit;
+      const bonus = allowance - foodPlan;
+      document.getElementById('target').textContent=a?`${allowance.toLocaleString()} kcal guide`:'Your flexible guide';
+      document.getElementById('energyNote').textContent=a ? (bonus > 0 ? `${a.dataset.type}: ${burn.toLocaleString()} kcal estimated burn · ${state.bonusUsed ? 'your bonus fuel is included' : `you have ${bonus.toLocaleString()} kcal of bonus fuel`} while keeping a ~300 kcal deficit.` : bonus === 0 ? `${a.dataset.type}: ${burn.toLocaleString()} kcal estimated burn · your ${foodPlan.toLocaleString()} kcal plan already holds a ~300 kcal deficit.` : restDay ? `Rest day: the workout meal is tucked away. Your ~${foodPlan.toLocaleString()} kcal plan gives roughly a ${Math.abs(bonus+desiredDeficit)} kcal buffer.` : `${a.dataset.type}: ${burn.toLocaleString()} kcal estimated burn · a 300 kcal deficit would mean about ${allowance.toLocaleString()} kcal today.`) : 'Choose an activity below to see today’s energy context.';
+      const card=document.getElementById('bonusCard'); card.hidden=bonus<=0; card.classList.toggle('is-done',state.bonusUsed); card.setAttribute('aria-pressed',String(state.bonusUsed));
+      if(bonus>0){document.getElementById('bonusTitle').textContent=state.bonusUsed?'Bonus fuel enjoyed':'Bonus fuel unlocked';document.getElementById('bonusDetail').textContent=state.bonusUsed?`${bonus.toLocaleString()} kcal included in today’s fuel`:`Tap when you’ve enjoyed your extra ${bonus.toLocaleString()} kcal`;document.getElementById('bonusPill').textContent=state.bonusUsed?'Done ✓':`${bonus.toLocaleString()} kcal`;}
+    }
+    meals.forEach(el=>el.addEventListener('click',()=>{const x=el.dataset.meal;state.meals=state.meals.includes(x)?state.meals.filter(m=>m!==x):[...state.meals,x];save();render();}));
+    activities.forEach(el=>el.addEventListener('click',()=>{const wasSelected=state.activity===el.dataset.type; state.activity=wasSelected?'':el.dataset.type; if(state.activity==='Rest') state.meals=state.meals.filter(meal=>meal!=='workout'); state.bonusUsed=false; save();render();}));
+    document.getElementById('bonusCard').addEventListener('click',()=>{state.bonusUsed=!state.bonusUsed;save();render();});
+    document.getElementById('reset').addEventListener('click',()=>{state.meals=[];state.activity='';state.bonusUsed=false;save();render();});
+    document.getElementById('date').textContent=new Intl.DateTimeFormat(undefined,{weekday:'long',month:'short',day:'numeric'}).format(new Date()); render();
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('./sw.js');
+  </script>
+</body>
+</html>
+
