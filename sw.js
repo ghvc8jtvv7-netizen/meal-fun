@@ -1,9 +1,11 @@
-const CACHE = 'gentle-fuel-v3';
+const CACHE = 'gentle-fuel-v12';
 const FILES = [
   './gentle-fuel.html',
   './manifest.webmanifest',
   './gentle-fuel-icon.svg',
+  './pet3d.js',
   './pets/bunny-stages.png',
+  './pets/bunny-stages-v2.png',
   './pets/kitty-stages.png',
   './pets/mochi-stages.png'
 ];
