@@ -1,6 +1,6 @@
 const CACHE = 'gentle-fuel-v15';
 const FILES = [
-  './gentle-fuel.html',
+  './index.html',
   './manifest.webmanifest',
   './gentle-fuel-icon.svg',
   './pet3d.js',
