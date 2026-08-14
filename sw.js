@@ -1,4 +1,4 @@
-const CACHE = 'gentle-fuel-v19';
+const CACHE = 'gentle-fuel-v20';
 const FILES = [
   './index.html',
   './manifest.webmanifest',
@@ -21,5 +21,16 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
-  event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request)));
+  const request = event.request;
+  event.respondWith(
+    fetch(request)
+      .then(response => {
+        if (response.ok && new URL(request.url).origin === self.location.origin) {
+          const copy = response.clone();
+          caches.open(CACHE).then(cache => cache.put(request, copy));
+        }
+        return response;
+      })
+      .catch(() => caches.match(request))
+  );
 });
