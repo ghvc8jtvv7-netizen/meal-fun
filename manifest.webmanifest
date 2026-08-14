@@ -2,7 +2,7 @@
   "name": "Gentle Fuel",
   "short_name": "Gentle Fuel",
   "description": "A calm, activity-aware diet companion.",
-  "start_url": "./gentle-fuel.html",
+  "start_url": "./?app=21",
   "display": "standalone",
   "background_color": "#f5f1e9",
   "theme_color": "#f5f1e9",
