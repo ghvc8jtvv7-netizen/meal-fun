@@ -1,4 +1,4 @@
-const CACHE = 'gentle-fuel-v18';
+const CACHE = 'gentle-fuel-v19';
 const FILES = [
   './index.html',
   './manifest.webmanifest',
